@@ -1,0 +1,91 @@
+{
+  "name": "@openapi-typescript-infra/temporal-worker",
+  "version": "0.0.0",
+  "description": "A Typescript node module to centralize some boilerplate around creating Temporal.io workers",
+  "exports": {
+    ".": {
+      "import": "./build/index.js",
+      "types": "./build/index.d.ts"
+    },
+    "./workflow": {
+      "types": "./build/workflow/index.d.ts",
+      "import": "./build/workflow/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "type": "module",
+  "types": "./build/index.d.ts",
+  "files": [
+    "build",
+    "config",
+    "Makefile",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "vitest",
+    "lint": "eslint .",
+    "build": "tsc -p tsconfig.build.json",
+    "watch": "tsc -p tsconfig.json -w --preserveWatchOutput",
+    "clean": "npx rimraf ./build",
+    "prepublishOnly": "yarn build",
+    "postinstall": "cpconfig"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openapi-typescript-infra/cluster-proxy.git"
+  },
+  "config": {
+    "cpconfig": "@openapi-typescript-infra/cpconfig",
+    "vitest": {
+      "timeout": "60000"
+    }
+  },
+  "engines": {
+    "node": ">22.0.0"
+  },
+  "author": "Max Metral <developers@pyralis.com>",
+  "license": "MIT",
+  "keywords": [
+    "typescript",
+    "workflows",
+    "temporal"
+  ],
+  "release": {
+    "branches": [
+      "main"
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/exec",
+        {
+          "publishCmd": "yarn dlx pinst --disable"
+        }
+      ],
+      "@semantic-release/npm",
+      "@semantic-release/github"
+    ]
+  },
+  "devDependencies": {
+    "@openapi-typescript-infra/cpconfig": "^1.1.0",
+    "@openapi-typescript-infra/service": "^6.11.0",
+    "@semantic-release/exec": "^7.1.0",
+    "@semantic-release/github": "^12.0.6",
+    "@temporalio/testing": "^1.15.0",
+    "@types/node": "^25.5.0",
+    "cpconfig": "^1.4.4",
+    "eslint": "^9.39.4",
+    "prettier": "^3.8.1",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.0"
+  },
+  "peerDependencies": {
+    "@openapi-typescript-infra/service": ">6"
+  },
+  "dependencies": {
+    "@temporalio/client": "^1.15.0",
+    "@temporalio/worker": "^1.15.0"
+  },
+  "packageManager": "yarn@3.8.7"
+}
