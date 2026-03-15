@@ -3,9 +3,10 @@ import { TestWorkflowEnvironment } from '@temporalio/testing';
 import { ActivityFailure, ApplicationFailure } from '@temporalio/common';
 import type { ServiceExpress } from '@openapi-typescript-infra/service';
 
-import { Temporal } from './index.js';
 import { combineActivities } from './createActivities.js';
 import { isCancelError, WAIT_COMPLETE } from './workflow/utils.js';
+
+import { Temporal } from './index.js';
 
 const fakeApp = {
   locals: {
