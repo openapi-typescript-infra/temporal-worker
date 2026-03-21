@@ -60,7 +60,7 @@
       [
         "@semantic-release/exec",
         {
-          "publishCmd": "yarn dlx pinst --disable"
+          "prepareCmd": "yarn dlx pinst --disable"
         }
       ],
       "@semantic-release/npm",
