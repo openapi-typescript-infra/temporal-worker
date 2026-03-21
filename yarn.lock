@@ -724,9 +724,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openapi-typescript-infra/service@npm:^6.11.0":
-  version: 6.11.0
-  resolution: "@openapi-typescript-infra/service@npm:6.11.0"
+"@openapi-typescript-infra/service@npm:^6.12.0":
+  version: 6.12.0
+  resolution: "@openapi-typescript-infra/service@npm:6.12.0"
   dependencies:
     "@godaddy/terminus": ^4.12.1
     "@opentelemetry/api": ^1.9.0
@@ -764,7 +764,7 @@ __metadata:
     request-ip: ^3.3.0
   bin:
     start-service: build/bin/start-service.js
-  checksum: e2e69855559f44b45c19c338b6bc7751d88c48307b237636d6888283ced72acc66d266710dee9378d8feb4f17ab52ba82f3284f61e3f5e759921e4f21c258a0d
+  checksum: f4cb55d4178e01b6a83ddda3c3c4a814b3729bf831df1828ae666547a606fcda8babdd2ab8a0c13957bad6a56ebcf2d3ed44a15f5b457265142e7e2f92048304
   languageName: node
   linkType: hard
 
@@ -773,7 +773,7 @@ __metadata:
   resolution: "@openapi-typescript-infra/temporal-worker@workspace:."
   dependencies:
     "@openapi-typescript-infra/cpconfig": ^1.1.0
-    "@openapi-typescript-infra/service": ^6.11.0
+    "@openapi-typescript-infra/service": ^6.12.0
     "@semantic-release/exec": ^7.1.0
     "@semantic-release/github": ^12.0.6
     "@temporalio/client": ^1.15.0
