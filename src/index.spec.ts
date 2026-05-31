@@ -4,6 +4,10 @@ import { ActivityFailure, ApplicationFailure } from '@temporalio/common';
 import type { ServiceExpress } from '@openapi-typescript-infra/service';
 
 import { combineActivities } from './createActivities.js';
+import {
+  OPEN_TELEMETRY_WORKFLOW_INTERCEPTOR_MODULE,
+  withOpenTelemetryWorkerOptions,
+} from './opentelemetry.js';
 import { isCancelError, WAIT_COMPLETE } from './workflow/utils.js';
 
 import { Temporal } from './index.js';
@@ -76,5 +80,24 @@ describe('Workflow helpers', () => {
     const a = { foo: () => 1 };
     const b = { foo: () => 2 };
     expect(() => combineActivities(a, b)).toThrow('Duplicate activity names: foo');
+  });
+
+  test('withOpenTelemetryWorkerOptions preserves existing worker interceptors', () => {
+    const activityInterceptor = () => ({});
+    const options = withOpenTelemetryWorkerOptions({
+      taskQueue: 'test',
+      workflowsPath: './workflows',
+      interceptors: {
+        activity: [activityInterceptor],
+        workflowModules: ['./custom-interceptor.js'],
+      },
+    });
+
+    expect(options.interceptors?.activity).toHaveLength(2);
+    expect(options.interceptors?.activity?.[0]).toBe(activityInterceptor);
+    expect(options.interceptors?.workflowModules).toEqual([
+      './custom-interceptor.js',
+      OPEN_TELEMETRY_WORKFLOW_INTERCEPTOR_MODULE,
+    ]);
   });
 });
