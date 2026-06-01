@@ -61,7 +61,7 @@ export function createActivities<
         app.locals.logger.error(
           Object.assign(error as Error, {
             activity: key,
-            workflow: context.info.workflowExecution.workflowId,
+            workflow: context.info.workflowExecution?.workflowId,
           }),
           `Error in activity ${key}`,
         );
