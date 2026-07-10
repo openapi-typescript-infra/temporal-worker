@@ -791,7 +791,7 @@ __metadata:
     typescript: ^5.9.3
     vitest: ^4.1.10
   peerDependencies:
-    "@openapi-typescript-infra/service": ">6"
+    "@openapi-typescript-infra/service": ">=6"
   languageName: unknown
   linkType: soft
 
