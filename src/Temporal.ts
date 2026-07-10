@@ -83,7 +83,8 @@ export class Temporal {
     activities: WorkerOptions['activities'],
     workflowsPath?: string,
   ) {
-    const { address, tls, clientEnabled, namespace, workerEnabled, ...workerConfig } = config;
+    const { address, apiKey, tls, clientEnabled, namespace, workerEnabled, ...workerConfig } =
+      config;
     this.namespace = namespace;
 
     if (clientEnabled === false && !workerEnabled) {
@@ -94,7 +95,7 @@ export class Temporal {
     init(this.app);
 
     if (clientEnabled !== false) {
-      const connection = Connection.lazy({ address, tls: tls as TLSConfig });
+      const connection = Connection.lazy({ address, apiKey, tls: tls as TLSConfig });
       this._client = new Client({ connection, namespace });
       this.app.locals.logger.info({ namespace }, 'Started Temporal client');
     }
@@ -105,6 +106,7 @@ export class Temporal {
 
     this.connection = await NativeConnection.connect({
       address,
+      apiKey,
       tls: tls as TLSConfig,
     });
     this.worker = await Worker.create({

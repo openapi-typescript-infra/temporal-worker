@@ -13,12 +13,18 @@ export interface TemporalWorkerConfig extends WorkerOptions {
   // The namespace to connect to
   namespace?: string;
 
+  // API key for Temporal Cloud. Passed as a Bearer token by the SDK.
+  apiKey?: string;
+
   // Typia has a problem validating Buffers, so we need to
   // "retype" them as Uint8Array
-  tls?: {
-    clientCertPair: {
-      key: Uint8Array;
-      crt: Uint8Array;
-    };
-  };
+  tls?:
+    | {
+        clientCertPair: {
+          key: Uint8Array;
+          crt: Uint8Array;
+        };
+      }
+    | boolean
+    | null;
 }
