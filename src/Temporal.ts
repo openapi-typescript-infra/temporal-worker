@@ -47,7 +47,9 @@ function init(app: ServiceExpress) {
       shutdownSignals: [],
       telemetryOptions: {
         metrics: {
-          prometheus: { bindAddress: '0.0.0.0:9464' },
+          prometheus: {
+            bindAddress: process.env.TEMPORAL_PROMETHEUS_BIND_ADDRESS || '0.0.0.0:9464',
+          },
         },
         logging: {
           filter: makeTelemetryFilterString({
