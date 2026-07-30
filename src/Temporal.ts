@@ -10,6 +10,14 @@ import { getNodeEnv } from '@openapi-typescript-infra/service';
 import type { TemporalWorkerConfig } from './config.js';
 
 let runtimeInstalled = false;
+const DEFAULT_WORKER_FAILURE_SHUTDOWN_TIMEOUT_MS = 30_000;
+
+function getWorkerFailureShutdownTimeoutMs() {
+  const configuredTimeout = Number(process.env.TEMPORAL_WORKER_FAILURE_SHUTDOWN_TIMEOUT_MS);
+  return Number.isFinite(configuredTimeout) && configuredTimeout > 0
+    ? configuredTimeout
+    : DEFAULT_WORKER_FAILURE_SHUTDOWN_TIMEOUT_MS;
+}
 
 function init(app: ServiceExpress) {
   if (!runtimeInstalled) {
@@ -70,6 +78,7 @@ export class Temporal {
   private workerPromise: Promise<void> | undefined;
   private connection?: NativeConnection;
   private _client?: Client;
+  private stopping = false;
 
   constructor(private app: ServiceExpress) {}
 
@@ -120,20 +129,57 @@ export class Temporal {
     });
 
     this.workerPromise = this.worker.run().catch((error) => {
-      this.app.locals.logger.warn(error, 'Temporal worker failed, shutting down');
-      const stopPromise = this.app.locals.service.stop?.(this.app);
-      if (stopPromise) {
-        stopPromise.catch((stopError) => {
-          // eslint-disable-next-line no-console
-          console.error('Failed to stop the app', stopError);
-        });
-      }
+      this.handleWorkerFailure(error);
     });
     this.app.locals.logger.info('Started Temporal worker');
   }
 
+  private handleWorkerFailure(error: unknown) {
+    if (this.stopping) {
+      return;
+    }
+
+    this.stopping = true;
+    const shutdownTimeoutMs = getWorkerFailureShutdownTimeoutMs();
+    this.app.locals.logger.error(
+      { error, shutdownTimeoutMs },
+      'Temporal worker failed; stopping process for orchestrator restart',
+    );
+
+    const exit = () => {
+      process.exitCode = 1;
+      process.exit(1);
+    };
+
+    const exitTimer = setTimeout(() => {
+      this.app.locals.logger.error(
+        { shutdownTimeoutMs },
+        'Timed out stopping after Temporal worker failure; forcing process exit',
+      );
+      exit();
+    }, shutdownTimeoutMs);
+    exitTimer.unref();
+
+    const stopPromise = this.app.locals.service.stop?.(this.app);
+    if (!stopPromise) {
+      clearTimeout(exitTimer);
+      exit();
+      return;
+    }
+
+    stopPromise
+      .catch((stopError) => {
+        this.app.locals.logger.error(stopError, 'Failed to stop after Temporal worker failure');
+      })
+      .finally(() => {
+        clearTimeout(exitTimer);
+        exit();
+      });
+  }
+
   async stop() {
     try {
+      this.stopping = true;
       if (this.worker) {
         this.worker.shutdown();
         await this.workerPromise;
