@@ -90,10 +90,10 @@
   "dependencies": {
     "@temporalio/activity": "1.22.0",
     "@temporalio/client": "^1.22.0",
-    "@temporalio/common": "1.22.0",
-    "@temporalio/interceptors-opentelemetry": "1.22.0",
+    "@temporalio/common": "^1.22.0",
+    "@temporalio/interceptors-opentelemetry": "^1.22.0",
     "@temporalio/worker": "^1.22.0",
-    "@temporalio/workflow": "1.22.0"
+    "@temporalio/workflow": "^1.22.0"
   },
   "publishConfig": {
     "access": "public"

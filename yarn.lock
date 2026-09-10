@@ -779,11 +779,11 @@ __metadata:
     "@semantic-release/github": ^12.0.9
     "@temporalio/activity": 1.22.0
     "@temporalio/client": ^1.22.0
-    "@temporalio/common": 1.22.0
-    "@temporalio/interceptors-opentelemetry": 1.22.0
+    "@temporalio/common": ^1.22.0
+    "@temporalio/interceptors-opentelemetry": ^1.22.0
     "@temporalio/testing": ^1.22.0
     "@temporalio/worker": ^1.22.0
-    "@temporalio/workflow": 1.22.0
+    "@temporalio/workflow": ^1.22.0
     "@types/node": ^26.2.0
     cpconfig: ^1.5.1
     eslint: ^9.39.5
@@ -2404,6 +2404,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@temporalio/common@npm:1.23.0, @temporalio/common@npm:^1.22.0":
+  version: 1.23.0
+  resolution: "@temporalio/common@npm:1.23.0"
+  dependencies:
+    "@temporalio/proto": 1.23.0
+    long: ^5.3.2
+    ms: 3.0.0-canary.1
+    nexus-rpc: ^0.0.3
+    protobufjs: ^8.7.1
+  checksum: 5e12e49e9553d257bccbfbe330e7fbc6a7376e501f59afdb888c96abfb1a29339cd0b0bdec51dfe7f09cdac3769f34273d01dc2b300dd73631057db9dd05c3dc
+  languageName: node
+  linkType: hard
+
 "@temporalio/core-bridge@npm:1.22.0":
   version: 1.22.0
   resolution: "@temporalio/core-bridge@npm:1.22.0"
@@ -2414,22 +2427,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@temporalio/interceptors-opentelemetry@npm:1.22.0":
-  version: 1.22.0
-  resolution: "@temporalio/interceptors-opentelemetry@npm:1.22.0"
+"@temporalio/interceptors-opentelemetry@npm:^1.22.0":
+  version: 1.23.0
+  resolution: "@temporalio/interceptors-opentelemetry@npm:1.23.0"
   dependencies:
     "@opentelemetry/api": ^1.9.0
     "@opentelemetry/core": ^1.25.1
     "@opentelemetry/resources": ^1.25.1
     "@opentelemetry/sdk-trace-base": ^1.25.1
-    "@temporalio/plugin": 1.22.0
+    "@temporalio/plugin": 1.23.0
   peerDependencies:
-    "@temporalio/common": 1.22.0
-    "@temporalio/workflow": 1.22.0
+    "@temporalio/common": 1.23.0
+    "@temporalio/workflow": 1.23.0
   peerDependenciesMeta:
     "@temporalio/workflow":
       optional: true
-  checksum: 331fea15ef886d9fcfa703fe720029c2b1297b3cef9c7fd67320ad9d07bc335269d65de53ca64a20972686d808550aefe639ac7923dcdabee5ada6423257d1c1
+  checksum: 4e30b2ac4dd76cd5adc45378624b64655d586d916fc7cf6a11b4b02baab2d0ebac12e834674dc5f12a82dcb306a766ff25d3ac0ae11072f57818b2f4cf7cf276
   languageName: node
   linkType: hard
 
@@ -2446,10 +2459,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@temporalio/plugin@npm:1.22.0":
-  version: 1.22.0
-  resolution: "@temporalio/plugin@npm:1.22.0"
-  checksum: 435e1d8b5f2633d7998b6fc131cac3db91c73b36d3c7a15763ce4c52a4f03c3cf5d7b1aadc48b800fe5a5348e263250ac73494298bc3a4037509a1b1abbcad32
+"@temporalio/plugin@npm:1.23.0":
+  version: 1.23.0
+  resolution: "@temporalio/plugin@npm:1.23.0"
+  checksum: 6687afe4343d906744456e28d6fb7bd6c30db8837a549502880c6a4d72fafedf0427f16b7bd9dedb62c500e784ab19b815792cb39dd463a10184cc3e1d2ed25c
   languageName: node
   linkType: hard
 
@@ -2460,6 +2473,16 @@ __metadata:
     long: ^5.2.3
     protobufjs: ^7.6.4
   checksum: 28429569ce89a66b4d5ab0b4ba1ddef0a5866ac9b50282108c243c6ec3c62ba6000ff3f7bad88847da312e1ba7604f6e9b9d41d53a5c1fbe156bdc3ecd502fa3
+  languageName: node
+  linkType: hard
+
+"@temporalio/proto@npm:1.23.0":
+  version: 1.23.0
+  resolution: "@temporalio/proto@npm:1.23.0"
+  dependencies:
+    long: ^5.3.2
+    protobufjs: ^8.7.1
+  checksum: 540c1144c00968c9896f187b9a86244b5675039208976099ada17173e672ffe68f92a5ed7f2c3e070b46605ef7708bcf5b59ef34f679bdcddc90df218f87fcc5
   languageName: node
   linkType: hard
 
@@ -2514,6 +2537,17 @@ __metadata:
     "@temporalio/proto": 1.22.0
     nexus-rpc: ^0.0.2
   checksum: 4479b644f04495378799c829cdc680286cf24ccdbe4367e24ae81fb05d768db2268c3b356f11d83b931045a0a1ed121eacce8d2dc8a1cd9475a3754a99d89829
+  languageName: node
+  linkType: hard
+
+"@temporalio/workflow@npm:^1.22.0":
+  version: 1.23.0
+  resolution: "@temporalio/workflow@npm:1.23.0"
+  dependencies:
+    "@temporalio/common": 1.23.0
+    "@temporalio/proto": 1.23.0
+    nexus-rpc: ^0.0.3
+  checksum: c060a428994d7d140232aed97c81092f3c0588eea5253d7215d3ed9e7bf5da8aee22bbee5ea57fa3b8166b5504dca6df99b48970a6e4e1394e73722dcfb391da
   languageName: node
   linkType: hard
 
@@ -6443,6 +6477,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nexus-rpc@npm:^0.0.3":
+  version: 0.0.3
+  resolution: "nexus-rpc@npm:0.0.3"
+  checksum: 17c14d7bf42e2b7b05de85f4f6e64bdb76355a7f9ebed8db4abd2a190b0982d1a7665e4e762487a175e3918ada33127b28357a54808798ec17c323eb1c7894d0
+  languageName: node
+  linkType: hard
+
 "node-domexception@npm:^1.0.0":
   version: 1.0.0
   resolution: "node-domexception@npm:1.0.0"
@@ -6994,6 +7035,15 @@ __metadata:
     "@types/node": ">=13.7.0"
     long: ^5.3.2
   checksum: 6d3f18324942f8cabf003b68b81a445e8089a3f89cfae227feedbe4bfe8aea8629f6332cbe6176842cbe645704e4a25d4773b55c3b63d923034b3e6b4eacbb78
+  languageName: node
+  linkType: hard
+
+"protobufjs@npm:^8.7.1":
+  version: 8.8.0
+  resolution: "protobufjs@npm:8.8.0"
+  dependencies:
+    long: ^5.3.2
+  checksum: d8700a777fe38b2c9f5c6f7f698f35954d7ba79a3bd465e273ab0da49aff51463f131d38db0d5d15bf7d3e680495fe8bb02ca02ebc13ec8e838b6a5c1d2d739e
   languageName: node
   linkType: hard
 
